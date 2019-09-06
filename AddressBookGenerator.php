@@ -93,6 +93,13 @@ set_error_handler(
     }
 );
 
+function wrongFormatError()
+{
+    echo "ERROR: CSV FIle in wrong format \n";
+    echo "EXIT";
+    exit();
+}
+
 //-----------------------   </Functions>  ----------------------
 
 //todo: check path other then in same folder as php
@@ -117,14 +124,18 @@ echo "Input is OK.\nRUNNING...\n";
 
 try {
     $csvArray = array_map('str_getcsv', file($argv[1]));
-}
-catch (Exception $e) {
+} catch (Exception $e) {
     echo "ERROR: CSV FIle not found or in wrong format \n";
     echo "EXIT";
     exit();
 }
 restore_error_handler();
 $firstLineArray = $csvArray[0]; //save the first row in the array
+
+//check if csv have 6 fields in title and have at least 1 person details
+if (count($csvArray[0]) != 6 || count($csvArray) < 2) {
+    wrongFormatError();
+}
 
 
 // Extracting the first line of the csv (Keys line)
@@ -153,6 +164,8 @@ array_multisort($lastNameArr, SORT_ASC, $csvArray);
 
 
 for ($i = 0; $i < count($csvArray); $i++) { //iterates rows
+    if (count($csvArray[$i]) != 6)
+        wrongFormatError();
     $rowHolder = $csvArray[$i];
     $words = ""; // resets after each row to collect the words from the next row
     for ($j = 0; $j < count($rowHolder); $j++) { //iterates words in each row
