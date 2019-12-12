@@ -1,4 +1,4 @@
-This php script generates index.html with content from a csv
+This Php script generates Html address book with contacts cards and photos from csv file
 ---
 
 USAGE: php AddressBookGenerator.php [csvFile].csv
