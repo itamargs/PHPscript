@@ -1,4 +1,4 @@
-This Php script generates Html address book with contacts cards and photos from csv file
+This Php script generates Html address book with contacts cards and photos from a csv file
 ---
 
 USAGE: php AddressBookGenerator.php [csvFile].csv
